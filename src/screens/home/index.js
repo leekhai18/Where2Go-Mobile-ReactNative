@@ -20,6 +20,10 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      selectedTabview: 0,
+      selectedTab: 0
+    }
   }
 
   componentDidMount() {
@@ -27,14 +31,7 @@ export default class HomeScreen extends Component {
     console.log(getItems());
   }
 
-  lastDelY = 0;
-  headerCollapsed = false;
-  selectedTab = 0;
-  selectedTabview = 0;
-  items: Array<Item>;
-  categories: Array<Category>;
-
-  showItem(itemId) {
+  showItem = (itemId) => {
     console.log(`Tapped on ${itemId}`);
     // this.routerExtensions.navigate(["detail/" + itemId, {
     //   animated: true,
@@ -46,7 +43,7 @@ export default class HomeScreen extends Component {
     // }]);
   }
 
-  toggleLike(item) {
+  toggleLike = (item) => {
     item.isLike = !item.isLike;
     if (item.isLike) {
       item.likes += 1;
@@ -55,11 +52,11 @@ export default class HomeScreen extends Component {
     }
   }
 
-  toggleHeart(item) {
+  toggleHeart = (item) => {
     item.isFavorite = !item.isFavorite;
   }
 
-  categoryIcon(itemCategory) {
+  categoryIcon = (itemCategory) => {
     switch (itemCategory) {
       case "Burger":
         return String.fromCharCode(0xf0f5); //"fa-cutlery";
@@ -80,45 +77,41 @@ export default class HomeScreen extends Component {
   }
 
   //Top nav bar tap methods
-  onBellTap() {
+  onBellTap = () => {
     console.log('onBellTap');
   }
 
-  onSearchTap() {
+  onSearchTap = () => {
     console.log('onSearchTap');
   }
 
-  onAvatarTap() {
+  onAvatarTap = () => {
     console.log('onAvatarTap');
   }
 
-  onPopularTap() {
-    this.selectedTabview = 0;
+  onPopularTap = () => {
+    this.setState({ selectedTabview: 0 });
   }
 
-  onCategoryTap() {
-    this.selectedTabview = 1;
+  onCategoryTap = () => {
+    this.setState({ selectedTabview: 1 });
   }
 
-  onPromosTap() {
-    this.selectedTabview = 2;
+  onPromosTap = () => {
+    this.setState({ selectedTabview: 2 });
   }
 
   //Bottom nav bar tap methods
-  onHomeTap() {
-    this.selectedTab = 0;
+  onHomeTap = () => {
+    this.setState({ selectedTab: 0 });
   }
 
-  onCartTap() {
-    this.selectedTab = 1;
+  onWritePostTap = () => {
+    this.setState({ selectedTab: 1 });
   }
 
-  onHistoryTap() {
-    this.selectedTab = 2;
-  }
-
-  onAboutTap() {
-    this.selectedTab = 3;
+  onProfileTap = () => {
+    this.setState({ selectedTab: 2 });
   }
 
   render() {
@@ -154,9 +147,72 @@ export default class HomeScreen extends Component {
           </Col>
         </Row >
 
-        <Row style={{  }}>
-          <Col style={{ backgroundColor: '#ff7675' }}></Col>
-          <Col style={{ backgroundColor: '#6c5ce7' }}></Col>
+        <Row style={{ backgroundColor: '#bd2122', height: 50 }}>
+          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+            onTouchStart={this.onPopularTap}>
+            {this.state.selectedTabview == 0 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../src/assets/images/popular.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>POPULAR</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTabview != 0 && (
+              <Row>
+                <Text>POPULAR</Text>
+              </Row>
+            )}
+          </Col>
+
+          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+            onTouchStart={this.onCategoryTap}>
+            {this.state.selectedTabview == 1 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../src/assets/images/popular.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>POPULAR</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTabview != 1 && (
+              <Row>
+                <Text>POPULAR</Text>
+              </Row>
+            )}
+          </Col>
+
+          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+            onTouchStart={this.onPromosTap}>
+            {this.state.selectedTabview == 2 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../src/assets/images/popular.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>POPULAR</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTabview != 2 && (
+              <Row>
+                <Text>POPULAR</Text>
+              </Row>
+            )}
+          </Col>
         </Row>
 
         <ScrollView>
@@ -167,9 +223,78 @@ export default class HomeScreen extends Component {
           </Row>
         </ScrollView>
 
-        <Row>
-          <Col style={{ backgroundColor: '#ff7675' }}></Col>
-          <Col style={{ backgroundColor: '#6c5ce7' }}></Col>
+        <Row style={{ height: 50 }}>
+          <Col onTouchStart={this.onHomeTap}>
+            {this.state.selectedTab == 0 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../src/assets/images/navhomem.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>Địa điểm</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTab != 0 && (
+              <Row>
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../src/assets/images/navhome.png')}>
+                </Image>
+              </Row>
+            )}
+          </Col>
+
+          <Col onTouchStart={this.onWritePostTap}>
+            {this.state.selectedTab == 1 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../src/assets/images/navordersm.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>Viết bài</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTab != 1 && (
+              <Row>
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../src/assets/images/navorders.png')}>
+                </Image>
+              </Row>
+            )}
+          </Col>
+
+          <Col onTouchStart={this.onProfileTap}>
+            {this.state.selectedTab == 2 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../src/assets/images/navusm.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>Trang cá nhân</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTab != 2 && (
+              <Row>
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../src/assets/images/navus.png')}>
+                </Image>
+              </Row>
+            )}
+          </Col>
         </Row>
       </Grid >
     );
@@ -178,7 +303,7 @@ export default class HomeScreen extends Component {
 
 const dimensions = Dimensions.get('window');
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
   navStatusBar: {
     backgroundColor: '#bd2122',
     height: 55,
@@ -206,5 +331,8 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     resizeMode: 'stretch',
+  },
+  navBottom: {
+    height: 50
   }
 });
