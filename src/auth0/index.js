@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native';
 import Auth0 from 'react-native-auth0';
-import { getCategories, getItems } from './data/data';
+import { getCategories, getItems } from '../data/data';
 
 var credentials = require('./auth0-credentials');
 const auth0 = new Auth0(credentials);
