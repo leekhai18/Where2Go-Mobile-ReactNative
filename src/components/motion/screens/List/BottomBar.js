@@ -4,15 +4,9 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableWithoutFeedback,
+  Image
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import { Row } from '../../components';
+import { Col, Row, Grid } from "react-native-easy-grid";
 import { getPlatformElevation } from '../../utils';
 
 class BottomBar extends PureComponent {
@@ -21,8 +15,10 @@ class BottomBar extends PureComponent {
 
     this.state = {
       translateY: new Animated.Value(0),
+      selectedTab: 0
     };
   }
+
   componentWillReceiveProps(nextProps) {
     if (!this.props.isHidden && nextProps.isHidden) {
       this.hideAnimation();
@@ -31,6 +27,7 @@ class BottomBar extends PureComponent {
       this.showAnimation();
     }
   }
+
   hideAnimation() {
     Animated.timing(this.state.translateY, {
       toValue: 56,
@@ -43,6 +40,20 @@ class BottomBar extends PureComponent {
       useNativeDriver: true,
     }).start();
   }
+
+	//Bottom nav bar tap methods
+	onHomeTap = () => {
+		this.setState({ selectedTab: 0 });
+	}
+
+	onWritePostTap = () => {
+		this.setState({ selectedTab: 1 });
+	}
+
+	onProfileTap = () => {
+		this.setState({ selectedTab: 2 });
+  }
+  
   render() {
     return (
       <Animated.View
@@ -57,22 +68,78 @@ class BottomBar extends PureComponent {
           },
         ]}
       >
-        <Row style={styles.barContainer}>
-          <View style={styles.iconContainer}>
-            <SimpleLineIcons name="present" size={24} color="#ddd" />
-          </View>
-          <View style={styles.iconContainer}>
-            <Entypo name="wallet" size={24} color="#008dff" />
-          </View>
-          <View style={styles.iconContainer}>
-            <Ionicons name="md-qr-scanner" size={32} color="#ddd" />
-          </View>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name="message" size={24} color="#ddd" />
-          </View>
-          <View style={styles.iconContainer}>
-            <MaterialIcons name="person" size={24} color="#ddd" />
-          </View>
+        <Row style={{ height: 50 }}>
+          <Col onTouchStart={this.onHomeTap}>
+            {this.state.selectedTab == 0 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../../assets/images/navhomem.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>Địa điểm</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTab != 0 && (
+              <Row>
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navhome.png')}>
+                </Image>
+              </Row>
+            )}
+          </Col>
+
+          <Col onTouchStart={this.onWritePostTap}>
+            {this.state.selectedTab == 1 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../../assets/images/navordersm.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>Viết bài</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTab != 1 && (
+              <Row>
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navorders.png')}>
+                </Image>
+              </Row>
+            )}
+          </Col>
+
+          <Col onTouchStart={this.onProfileTap}>
+            {this.state.selectedTab == 2 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../../assets/images/navusm.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>Trang cá nhân</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTab != 2 && (
+              <Row>
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navus.png')}>
+                </Image>
+              </Row>
+            )}
+          </Col>
         </Row>
       </Animated.View>
     );
@@ -80,45 +147,12 @@ class BottomBar extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    ...getPlatformElevation(4),
-    height: 56,
-    paddingHorizontal: 16,
-    justifyContent: 'center',
-  },
-  barContainer: {},
-  iconContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  toolbarBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 150,
-    backgroundColor: '#008dff',
-  },
-  statusBar: {
-    height: 24,
-    backgroundColor: 'white',
-  },
-  titleBackText: {
-    color: 'white',
-    marginLeft: 8,
-  },
-  titleText: {
-    fontSize: 24,
-    fontWeight: '900',
-  },
-  menuIconContainer: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  statusImage: {
+		marginTop: 4,
+		marginRight: 20,
+		width: 30,
+		height: 30,
+	},
 });
 
 export default BottomBar;

@@ -1,107 +1,190 @@
 import React, { PureComponent } from 'react';
+import translateAndOpacity from '../../animations/translateAndOpacity';
 import {
-  Animated,
+  StyleSheet,
   Text,
   View,
-  StyleSheet,
-  TouchableWithoutFeedback,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from 'react-native-vector-icons/Feather';
-
-import { Row } from '../../components';
-import translateAndOpacity from '../../animations/translateAndOpacity';
+import { getCategories, getItems } from './../../../../data/data';
+import Item from './../../../../data/item.model';
+import Category from './../../../../data/category.model';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 class Toolbar extends PureComponent {
-  renderDetail() {
-    const { opacityValue, translateY } = this.state;
-    const { onBackPress } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.statusBar} />
-        <TouchableWithoutFeedback onPress={onBackPress}>
-          <Animated.View style={animationStyle}>
-            <Row style={styles.toolbarContainer}>
-              <Row style={styles.backContainer}>
-                <Ionicons name="ios-arrow-back" size={24} color="white" />
-                <Text style={styles.titleBackText}>Back</Text>
-              </Row>
-              <View style={styles.menuIconContainer}>
-                <Feather name="share" size={24} color="white" />
-              </View>
-            </Row>
-          </Animated.View>
-        </TouchableWithoutFeedback>
-      </View>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTabview: 0,
+      selectedTab: 0
+    }
   }
+
+  componentDidMount() {
+    console.log(getCategories());
+    console.log(getItems());
+  }
+
+  //Top nav bar tap methods
+  onBellTap = () => {
+    console.log('onBellTap');
+  }
+
+  onSearchTap = () => {
+    console.log('onSearchTap');
+  }
+
+  onAvatarTap = () => {
+    console.log('onAvatarTap');
+  }
+
+  onPopularTap = () => {
+    this.setState({ selectedTabview: 0 });
+  }
+
+  onCategoryTap = () => {
+    this.setState({ selectedTabview: 1 });
+  }
+
+  onPromosTap = () => {
+    this.setState({ selectedTabview: 2 });
+  }
+
+
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.statusBar} />
-        <View>
-          <Row style={styles.toolbarContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>My Checks</Text>
-            </View>
-            <View style={styles.menuIconContainer}>
-              <Ionicons name="md-menu" size={24} color="#008dff" />
-            </View>
-            <View style={styles.menuIconContainer}>
-              <MaterialCommunityIcons
-                name="file-document"
-                size={24}
-                color="#008dff"
+      <View>
+        <Row style={styles.navStatusBar}>
+          <Col size={5}>
+            <Text style={styles.statusTitle}>Home</Text>
+          </Col>
+          <Col size={1}>
+            <TouchableOpacity onPress={this.onSearchTap}>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/search.png')}
               />
-            </View>
-          </Row>
-        </View>
+            </TouchableOpacity>
+          </Col>
+          <Col size={1}>
+            <TouchableOpacity onPress={this.onBellTap}>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/bell.png')}
+              />
+            </TouchableOpacity>
+          </Col>
+          <Col size={1}>
+            <TouchableOpacity onPress={this.onAvatarTap}>
+              <Image
+                style={styles.statusAvatar}
+                source={require('./../../../../assets/images/me.jpg')}
+              />
+            </TouchableOpacity>
+          </Col>
+        </Row >
+
+        <Row style={{ backgroundColor: '#bd2122', height: 50 }}>
+          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+            onTouchStart={this.onPopularTap}>
+            {this.state.selectedTabview == 0 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../../assets/images/popular.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>POPULAR</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTabview != 0 && (
+              <Row>
+                <Text>POPULAR</Text>
+              </Row>
+            )}
+          </Col>
+
+          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+            onTouchStart={this.onCategoryTap}>
+            {this.state.selectedTabview == 1 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../../assets/images/popular.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>POPULAR</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTabview != 1 && (
+              <Row>
+                <Text>POPULAR</Text>
+              </Row>
+            )}
+          </Col>
+
+          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+            onTouchStart={this.onPromosTap}>
+            {this.state.selectedTabview == 2 && (
+              <Col>
+                <Row>
+                  <Image
+                    style={styles.statusImage}
+                    source={require('./../../../../assets/images/popular.png')}>
+                  </Image>
+                </Row>
+                <Row>
+                  <Text>POPULAR</Text>
+                </Row>
+              </Col>
+            )}
+            {this.state.selectedTabview != 2 && (
+              <Row>
+                <Text>POPULAR</Text>
+              </Row>
+            )}
+          </Col>
+        </Row>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  toolbarContainer: {
-    height: 56,
-    alignItems: 'center',
-    paddingHorizontal: 16,
+  navStatusBar: {
+    backgroundColor: '#bd2122',
+    height: 55,
+    paddingTop: 15
   },
-  titleContainer: {
-    flex: 1,
+  statusTitle: {
+    color: '#ffffff',
+    fontSize: 18,
+    marginLeft: 15,
+    marginTop: 8,
   },
-  toolbarBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 150,
-    backgroundColor: '#008dff',
+  statusImage: {
+    marginTop: 4,
+    marginRight: 20,
+    width: 30,
+    height: 30,
   },
-  statusBar: {
-    height: 24,
-    backgroundColor: 'white',
-  },
-  titleBackText: {
-    color: 'white',
-    marginLeft: 8,
-  },
-  titleText: {
-    fontSize: 24,
-    fontWeight: '900',
-  },
-  backContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  menuIconContainer: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
+  statusAvatar: {
+    borderWidth: 1,
+    borderColor: '#ffffff',
+    backgroundColor: '#f1ebeb',
+    borderRadius: 15,
+    marginTop: 4,
+    marginRight: 15,
+    width: 30,
+    height: 30,
+    resizeMode: 'stretch',
   },
 });
 

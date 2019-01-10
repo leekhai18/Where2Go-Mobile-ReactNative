@@ -56,19 +56,6 @@ export default class HomeScreen extends Component {
 		this.setState({ selectedTabview: 2 });
 	}
 
-	//Bottom nav bar tap methods
-	onHomeTap = () => {
-		this.setState({ selectedTab: 0 });
-	}
-
-	onWritePostTap = () => {
-		this.setState({ selectedTab: 1 });
-	}
-
-	onProfileTap = () => {
-		this.setState({ selectedTab: 2 });
-	}
-
 	render() {
 		return (
 			<Grid>
