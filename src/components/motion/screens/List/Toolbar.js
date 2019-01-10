@@ -11,6 +11,8 @@ import { getCategories, getItems } from './../../../../data/data';
 import Item from './../../../../data/item.model';
 import Category from './../../../../data/category.model';
 import { Col, Row, Grid } from "react-native-easy-grid";
+import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class Toolbar extends PureComponent {
   constructor(props) {
@@ -46,13 +48,25 @@ class Toolbar extends PureComponent {
     this.setState({ selectedTabview: 2 });
   }
 
+  get gradient() {
+    return (
+      <LinearGradient
+        colors={['#5be1bd', '#5be190']}
+        startPoint={{ x: 1, y: 0 }}
+        endPoint={{ x: 0, y: 1 }}
+        style={styles.gradient}
+      />
+    );
+  }
+
 
   render() {
     return (
       <View>
+        {this.gradient}
         <Row style={styles.navStatusBar}>
           <Col size={5}>
-            <Text style={styles.statusTitle}>Home</Text>
+            <Text style={styles.title}>Home</Text>
           </Col>
           <Col size={1}>
             <TouchableOpacity onPress={this.onSearchTap}>
@@ -80,69 +94,60 @@ class Toolbar extends PureComponent {
           </Col>
         </Row >
 
-        <Row style={{ backgroundColor: '#bd2122', height: 50 }}>
-          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+        <Row style={{ height: 50 }}>
+          <Col style={styles.filterContainer}
             onTouchStart={this.onPopularTap}>
             {this.state.selectedTabview == 0 && (
               <Col>
                 <Row>
-                  <Image
-                    style={styles.statusImage}
-                    source={require('./../../../../assets/images/popular.png')}>
-                  </Image>
+                  <FontAwesome style={styles.iconFilter} name="users" size={24} color="white"></FontAwesome>
                 </Row>
                 <Row>
-                  <Text>POPULAR</Text>
+                  <Text style={styles.filterTextAction}>THƯA</Text>
                 </Row>
               </Col>
             )}
             {this.state.selectedTabview != 0 && (
               <Row>
-                <Text>POPULAR</Text>
+                <Text style={styles.filterText}>THƯA</Text>
               </Row>
             )}
           </Col>
 
-          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+          <Col style={styles.filterContainer}
             onTouchStart={this.onCategoryTap}>
             {this.state.selectedTabview == 1 && (
               <Col>
                 <Row>
-                  <Image
-                    style={styles.statusImage}
-                    source={require('./../../../../assets/images/popular.png')}>
-                  </Image>
+                  <FontAwesome style={styles.iconFilter} name="users" size={24} color="rgb(255, 193, 7)"></FontAwesome>
                 </Row>
                 <Row>
-                  <Text>POPULAR</Text>
+                  <Text style={styles.filterTextAction}> VỪA</Text>
                 </Row>
               </Col>
             )}
             {this.state.selectedTabview != 1 && (
               <Row>
-                <Text>POPULAR</Text>
+                <Text style={styles.filterText}> VỪA</Text>
               </Row>
             )}
           </Col>
 
-          <Col style={{ borderBottomColor: '#ffffff', borderBottomWidth: 3, margin: 0 }}
+          <Col style={styles.filterContainer}
             onTouchStart={this.onPromosTap}>
             {this.state.selectedTabview == 2 && (
               <Col>
                 <Row>
-                  <Image
-                    style={styles.statusImage}
-                    source={require('./../../../../assets/images/popular.png')}>
-                  </Image>
+                  <FontAwesome style={styles.iconFilter} name="users" size={24} color="rgb(220, 53, 69)"></FontAwesome>
                 </Row>
                 <Row>
-                  <Text>POPULAR</Text>
+                  <Text style={styles.filterTextAction}>ĐÔNG</Text>
                 </Row>
               </Col>
             )}
             {this.state.selectedTabview != 2 && (
               <Row>
-                <Text>POPULAR</Text>
+                <Text style={styles.filterText}>ĐÔNG</Text>
               </Row>
             )}
           </Col>
@@ -154,11 +159,10 @@ class Toolbar extends PureComponent {
 
 const styles = StyleSheet.create({
   navStatusBar: {
-    backgroundColor: '#bd2122',
     height: 55,
     paddingTop: 15
   },
-  statusTitle: {
+  title: {
     color: '#ffffff',
     fontSize: 18,
     marginLeft: 15,
@@ -181,6 +185,27 @@ const styles = StyleSheet.create({
     height: 30,
     resizeMode: 'stretch',
   },
+  gradient: {
+    ...StyleSheet.absoluteFillObject
+  },
+  filterText: {
+    color: '#ffffff',
+    fontSize: 15
+  },
+  filterTextAction: {
+    fontWeight: 'bold',
+    color: '#ffffff',
+    fontSize: 13
+  },
+  filterContainer: {
+    borderBottomColor: '#ffffff',
+    borderBottomWidth: 3,
+    margin: 0,
+    alignItems: 'center'
+  },
+  iconFilter: {
+    marginLeft: 5,
+  }
 });
 
 export default translateAndOpacity(Toolbar);
