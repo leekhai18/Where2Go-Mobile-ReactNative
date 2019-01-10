@@ -21,11 +21,6 @@ class Toolbar extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    console.log(getCategories());
-    console.log(getItems());
-  }
-
   //Top nav bar tap methods
   onBellTap = () => {
     console.log('onBellTap');

@@ -8,16 +8,23 @@ import {
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { getPlatformElevation } from '../../utils';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 
 class BottomBar extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      translateY: new Animated.Value(0),
+      translateY: new Animated.Value(56),
       selectedTab: 0
     };
+  }
+
+  componentDidMount() {
+    this.setState({ selectedTab: this.props.tabIndex })
+    setTimeout(() => {
+      this.showAnimation();
+    }, 300);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,27 +49,44 @@ class BottomBar extends PureComponent {
     }).start();
   }
 
-	//Bottom nav bar tap methods
-	onHomeTap = () => {
-    this.setState({ selectedTab: 0 });
-    this.props.navigation.navigate('HomeScreen');
-	}
-
-	onWritePostTap = () => {
-    this.setState({ selectedTab: 1 });
-    this.props.navigation.navigate('NewPostScreen');
-	}
-
-	onProfileTap = () => {
-    this.setState({ selectedTab: 2 });
-    this.props.navigation.navigate('ProfileScreen');
+  navigateWithResetAction = (router) => {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: router })],
+    });
+    this.props.navigation.dispatch(resetAction);
   }
-  
+
+  //Bottom nav bar tap methods
+  onHomeTap = () => {
+    this.setState({ selectedTab: 0 });
+    this.hideAnimation();
+    setTimeout(() => {
+      this.navigateWithResetAction('HomeScreen');
+    }, 300);
+
+  }
+
+  onWritePostTap = () => {
+    this.setState({ selectedTab: 1 });
+    this.hideAnimation();
+    setTimeout(() => {
+      this.navigateWithResetAction('NewPostScreen');
+    }, 300);
+  }
+
+  onProfileTap = () => {
+    this.setState({ selectedTab: 2 });
+    this.hideAnimation();
+    setTimeout(() => {
+      this.navigateWithResetAction('ProfileScreen');
+    }, 300);
+  }
+
   render() {
     return (
       <Animated.View
         style={[
-          styles.container,
           {
             transform: [
               {
@@ -72,76 +96,49 @@ class BottomBar extends PureComponent {
           },
         ]}
       >
-        <Row style={{ height: 50 }}>
+        <Row style={{ height: 40 }} onTouchStart={this.props.onTouchStart}>
           <Col onTouchStart={this.onHomeTap}>
             {this.state.selectedTab == 0 && (
-              <Col>
-                <Row>
-                  <Image
-                    style={styles.statusImage}
-                    source={require('./../../../../assets/images/navhomem.png')}>
-                  </Image>
-                </Row>
-                <Row>
-                  <Text>Địa điểm</Text>
-                </Row>
-              </Col>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/navhomem.png')}>
+              </Image>
             )}
             {this.state.selectedTab != 0 && (
-              <Row>
-                <Image
-                  style={styles.statusImage}
-                  source={require('./../../../../assets/images/navhome.png')}>
-                </Image>
-              </Row>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/navhome.png')}>
+              </Image>
             )}
           </Col>
 
           <Col onTouchStart={this.onWritePostTap}>
             {this.state.selectedTab == 1 && (
-              <Col>
-                <Row>
-                  <Image
-                    style={styles.statusImage}
-                    source={require('./../../../../assets/images/navordersm.png')}>
-                  </Image>
-                </Row>
-                <Row>
-                  <Text>Viết bài</Text>
-                </Row>
-              </Col>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/navordersm.png')}>
+              </Image>
             )}
             {this.state.selectedTab != 1 && (
-              <Row>
-                <Image
-                  style={styles.statusImage}
-                  source={require('./../../../../assets/images/navorders.png')}>
-                </Image>
-              </Row>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/navorders.png')}>
+              </Image>
             )}
           </Col>
 
           <Col onTouchStart={this.onProfileTap}>
             {this.state.selectedTab == 2 && (
-              <Col>
-                <Row>
-                  <Image
-                    style={styles.statusImage}
-                    source={require('./../../../../assets/images/navusm.png')}>
-                  </Image>
-                </Row>
-                <Row>
-                  <Text>Trang cá nhân</Text>
-                </Row>
-              </Col>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/navusm.png')}>
+              </Image>
             )}
             {this.state.selectedTab != 2 && (
-              <Row>
-                <Image
-                  style={styles.statusImage}
-                  source={require('./../../../../assets/images/navus.png')}>
-                </Image>
-              </Row>
+              <Image
+                style={styles.statusImage}
+                source={require('./../../../../assets/images/navus.png')}>
+              </Image>
             )}
           </Col>
         </Row>
@@ -152,11 +149,11 @@ class BottomBar extends PureComponent {
 
 const styles = StyleSheet.create({
   statusImage: {
-		marginTop: 4,
-		marginRight: 20,
-		width: 30,
-		height: 30,
-	},
+    marginVertical: 5,
+    marginRight: 20,
+    width: 30,
+    height: 30,
+  },
 });
 
 export default withNavigation(BottomBar);

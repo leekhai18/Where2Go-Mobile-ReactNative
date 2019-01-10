@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, View, FlatList, StyleSheet, Easing } from 'react-native';
+import { Text, View, FlatList, StyleSheet, Easing, Animated } from 'react-native';
 
 import { SharedElement } from 'react-native-motion';
 
@@ -71,6 +71,7 @@ class List extends PureComponent {
 			</SharedElement>
 		);
 	};
+
 	render() {
 		const { opacityOfSelectedItem } = this.state;
 		const { selectedItem, phase } = this.props;
@@ -88,7 +89,7 @@ class List extends PureComponent {
 					keyExtractor={item => item.name}
 					renderItem={this.renderItem}
 				/>
-				<BottomBar isHidden={phase !== 'phase-0'} />
+				<BottomBar onTouchStart={this.onTouchBottomBar} isHidden={phase !== 'phase-0'} tabIndex={0} />
 			</View>
 		);
 	}
