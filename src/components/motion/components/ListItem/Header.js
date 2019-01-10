@@ -5,7 +5,6 @@ import Ionicons  from 'react-native-vector-icons/Ionicons';
 
 import Avatar from './Avatar';
 import Row from '../Row';
-import assets from '../../assets';
 
 class Header extends PureComponent {
   render() {
@@ -21,7 +20,7 @@ class Header extends PureComponent {
 
     return (
       <Row style={styles.container}>
-        <Avatar text={name.substring(0, 1)} src={assets[name]} />
+        <Avatar text={name.substring(0, 1)} src={require('./../../../../assets/images/users/leekhai.png')} />
         <View style={styles.nameContainer}>
           <Text>{name}</Text>
         </View>

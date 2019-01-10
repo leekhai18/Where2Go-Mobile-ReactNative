@@ -11,7 +11,7 @@ import {
 
 import { SharedElement, TranslateYAndOpacity } from 'react-native-motion';
 
-import data from '../../data/data';
+import data from './../../../../assets/data/data';
 import { ListItem, Row } from '../../components';
 import Toolbar from './Toolbar';
 import BottomBar from './BottomBar';

@@ -7,9 +7,6 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import { getCategories, getItems } from './../../../../data/data';
-import Item from './../../../../data/item.model';
-import Category from './../../../../data/category.model';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -62,7 +59,7 @@ class Toolbar extends PureComponent {
 
   render() {
     return (
-      <View>
+      <View onTouchStart={this.props.onTouchStart}>
         {this.gradient}
         <Row style={styles.navStatusBar}>
           <Col size={5}>
@@ -190,7 +187,8 @@ const styles = StyleSheet.create({
   },
   filterText: {
     color: '#ffffff',
-    fontSize: 15
+    fontSize: 15,
+    marginTop: 10
   },
   filterTextAction: {
     fontWeight: 'bold',

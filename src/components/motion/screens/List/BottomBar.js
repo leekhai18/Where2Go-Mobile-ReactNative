@@ -96,8 +96,8 @@ class BottomBar extends PureComponent {
           },
         ]}
       >
-        <Row style={{ height: 40 }} onTouchStart={this.props.onTouchStart}>
-          <Col onTouchStart={this.onHomeTap}>
+        <Row style={{ height: 40 }}>
+          <Col onTouchStart={this.onHomeTap} style={styles.itemContainer}>
             {this.state.selectedTab == 0 && (
               <Image
                 style={styles.statusImage}
@@ -112,7 +112,7 @@ class BottomBar extends PureComponent {
             )}
           </Col>
 
-          <Col onTouchStart={this.onWritePostTap}>
+          <Col onTouchStart={this.onWritePostTap} style={styles.itemContainer}>
             {this.state.selectedTab == 1 && (
               <Image
                 style={styles.statusImage}
@@ -127,7 +127,7 @@ class BottomBar extends PureComponent {
             )}
           </Col>
 
-          <Col onTouchStart={this.onProfileTap}>
+          <Col onTouchStart={this.onProfileTap} style={styles.itemContainer}>
             {this.state.selectedTab == 2 && (
               <Image
                 style={styles.statusImage}
@@ -150,10 +150,12 @@ class BottomBar extends PureComponent {
 const styles = StyleSheet.create({
   statusImage: {
     marginVertical: 5,
-    marginRight: 20,
     width: 30,
     height: 30,
   },
+  itemContainer: {
+    alignItems: 'center'
+  }
 });
 
 export default withNavigation(BottomBar);

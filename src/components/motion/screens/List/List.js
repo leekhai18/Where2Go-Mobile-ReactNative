@@ -6,7 +6,7 @@ import { SharedElement } from 'react-native-motion';
 import Toolbar from './Toolbar';
 import BottomBar from './BottomBar';
 import { ListItem } from '../../components';
-import data from '../../data/data';
+import data from './../../../../assets/data/data';
 
 class List extends PureComponent {
 	constructor(props) {
@@ -72,6 +72,28 @@ class List extends PureComponent {
 		);
 	};
 
+	onTouchToolbar = () => {
+		console.log('onTouchToolbar');
+		let count = 1;
+		this.interval = setInterval(() => {
+			this.setState({ opacityOfSelectedItem: count });
+			count = count - 0.1;
+		}, 30);
+
+		setTimeout(() => {
+			count = 0;
+			clearInterval(this.interval);
+			this.interval = setInterval(() => {
+				this.setState({ opacityOfSelectedItem: count });
+				count = count + 0.2;
+			}, 20);
+
+			setTimeout(() => {
+				clearInterval(this.interval);
+			}, 200);
+		}, 300);
+	}
+
 	render() {
 		const { opacityOfSelectedItem } = this.state;
 		const { selectedItem, phase } = this.props;
@@ -81,6 +103,7 @@ class List extends PureComponent {
 				<Toolbar
 					isHidden={phase !== 'phase-0'}
 					onBackPress={this.onBackPressed}
+					onTouchStart={this.onTouchToolbar}
 				/>
 				<FlatList
 					style={{ height: 200 }}
@@ -89,7 +112,7 @@ class List extends PureComponent {
 					keyExtractor={item => item.name}
 					renderItem={this.renderItem}
 				/>
-				<BottomBar onTouchStart={this.onTouchBottomBar} isHidden={phase !== 'phase-0'} tabIndex={0} />
+				<BottomBar isHidden={phase !== 'phase-0'} tabIndex={0} />
 			</View>
 		);
 	}

@@ -13,8 +13,7 @@ class ListItem extends PureComponent {
   };
   render() {
     const { item, isSelected, style, isHidden, animateOnDidMount } = this.props;
-    const { name, isReceived, ...rest } = item;
-
+    console.log(item);
     return (
       <ScaleAndOpacity
         isHidden={isHidden}
@@ -22,8 +21,7 @@ class ListItem extends PureComponent {
       >
         <TouchableWithoutFeedback onPress={this.onPressed}>
           <View style={[styles.container, style]} pointerEvents="box-only">
-            <Header name={name} isReceived={isReceived} />
-            <Content {...rest} />
+            <Text>Hello</Text>
           </View>
         </TouchableWithoutFeedback>
       </ScaleAndOpacity>
