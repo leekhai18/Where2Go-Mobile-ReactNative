@@ -96,7 +96,7 @@ class BottomBar extends PureComponent {
           },
         ]}
       >
-        <Row style={{ height: 40 }}>
+        <Row style={{ height: 40, backgroundColor: '#f5f6fa' }}>
           <Col onTouchStart={this.onHomeTap} style={styles.itemContainer}>
             {this.state.selectedTab == 0 && (
               <Image

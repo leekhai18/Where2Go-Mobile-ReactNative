@@ -3,10 +3,9 @@ import { Text, View, StyleSheet, Image } from 'react-native';
 
 class Avatar extends PureComponent {
   render() {
-    const { src } = this.props;
     return (
       <View style={styles.container}>
-        <Image style={styles.container} source={src} />
+        <Image style={styles.container} source={this.props.src} />
       </View>
     );
   }
@@ -14,9 +13,11 @@ class Avatar extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    margin: 10,
+    marginLeft: 0,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
   },
