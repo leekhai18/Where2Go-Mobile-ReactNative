@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   statusBar: {
     height: 24,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   },
   titleBackText: {
     color: 'white',

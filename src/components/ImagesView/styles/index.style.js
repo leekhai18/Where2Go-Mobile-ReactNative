@@ -3,8 +3,10 @@ import { StyleSheet } from 'react-native';
 export const colors = {
     black: '#1a1917',
     gray: '#888888',
-    background1: '#B721FF',
-    background2: '#21D4FD'
+    // background1: '#B721FF',
+    // background2: '#21D4FD'
+    background1: '#00a8ff',
+    background2: '#00b894'
 };
 
 export default StyleSheet.create({
@@ -23,7 +25,7 @@ export default StyleSheet.create({
         flex: 1
     },
     exampleContainer: {
-        paddingTop: 30,
+        paddingTop: 120,
         paddingBottom: 10,
     },
     exampleContainerDark: {

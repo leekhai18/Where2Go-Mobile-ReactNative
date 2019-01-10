@@ -48,7 +48,7 @@ class Toolbar extends PureComponent {
   get gradient() {
     return (
       <LinearGradient
-        colors={['#5be1bd', '#5be190']}
+        colors={['#00b894', '#00d2d3']}
         startPoint={{ x: 1, y: 0 }}
         endPoint={{ x: 0, y: 1 }}
         style={styles.gradient}

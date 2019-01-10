@@ -111,14 +111,14 @@ class Detail extends PureComponent {
           </View>
         </SharedElement>
 
-        <FlatList style={{ marginTop: -40, zIndex: 0 }}
+        <FlatList style={{ marginTop: -120, zIndex: 0 }}
           data={items}
           dataExtra={phase}
           keyExtractor={item => item.amount}
           renderItem={this.renderItem}
         />
 
-        <BottomBar isHidden={phase === 'phase-3'} />
+        {/* <BottomBar isHidden={phase === 'phase-3'} /> */}
       </View>
     );
   }
