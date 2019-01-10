@@ -10,12 +10,14 @@ import {
 } from 'react-native';
 
 import { SharedElement, TranslateYAndOpacity } from 'react-native-motion';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import data from './../../../../assets/data/data';
-import { ListItem, Row } from '../../components';
+import { ListItem, Row, Col } from '../../components';
 import Toolbar from './Toolbar';
 import BottomBar from './BottomBar';
 import ImagesView from '../../../ImagesView';
+import Avatar from '../../components/ListItem/Avatar';
+import requireAssets from './../../../../assets/data/require';
 
 class Detail extends PureComponent {
   constructor(props) {
@@ -54,15 +56,61 @@ class Detail extends PureComponent {
 
         <TranslateYAndOpacity isHidden={phase !== 'phase-2'} delay={56 * delay}>
           <View style={styles.itemContainer}>
-            <Row style={styles.rowContainer}>
-              <View style={styles.titleContainer}>
-                <Text style={styles.titleText}>{item.name}</Text>
-              </View>
-              <Text style={styles.amountText}>{item.amount}</Text>
+            <Row>
+              <FontAwesome name="tags" size={14} color="#00d2d3"></FontAwesome>
+              <Text style={{ fontWeight: '700' }}> Description</Text>
             </Row>
-            <Text style={styles.vatText}>
-              {`${item.amount} X1 (Including VAT 10%)`}
-            </Text>
+            <View style={styles.description}>
+              <Text>{item.describe}</Text>
+            </View>
+
+            <Row style={styles.commentContainer}>
+              <Avatar src={requireAssets[item.comments[0].avatar]}></Avatar>
+              <Col>
+                <Text style={styles.commentContentText}>{item.comments[0].content}</Text>
+                <Row>
+                  <Text style={styles.commentSecondaryText}>{item.comments[0].time}</Text>
+                  <Text style={styles.commentSecondaryText}>Like</Text>
+                  <Text style={styles.commentSecondaryText}>Reply</Text>
+                </Row>
+              </Col>
+            </Row>
+
+            <Row style={styles.commentContainer}>
+              <Avatar src={requireAssets[item.comments[1].avatar]}></Avatar>
+              <Col>
+                <Text style={styles.commentContentText}>{item.comments[1].content}</Text>
+                <Row>
+                  <Text style={styles.commentSecondaryText}>{item.comments[1].time}</Text>
+                  <Text style={styles.commentSecondaryText}>Like</Text>
+                  <Text style={styles.commentSecondaryText}>Reply</Text>
+                </Row>
+              </Col>
+            </Row>
+
+            <Row style={styles.commentContainer}>
+              <Avatar src={requireAssets[item.comments[2].avatar]}></Avatar>
+              <Col>
+                <Text style={styles.commentContentText}>{item.comments[2].content}</Text>
+                <Row>
+                  <Text style={styles.commentSecondaryText}>{item.comments[2].time}</Text>
+                  <Text style={styles.commentSecondaryText}>Like</Text>
+                  <Text style={styles.commentSecondaryText}>Reply</Text>
+                </Row>
+              </Col>
+            </Row>
+
+            <Row style={styles.commentContainer}>
+              <Avatar src={requireAssets[item.comments[3].avatar]}></Avatar>
+              <Col>
+                <Text style={styles.commentContentText}>{item.comments[3].content}</Text>
+                <Row>
+                  <Text style={styles.commentSecondaryText}>{item.comments[3].time}</Text>
+                  <Text style={styles.commentSecondaryText}>Like</Text>
+                  <Text style={styles.commentSecondaryText}>Reply</Text>
+                </Row>
+              </Col>
+            </Row>
           </View>
         </TranslateYAndOpacity>
       </View>
@@ -111,14 +159,14 @@ class Detail extends PureComponent {
           </View>
         </SharedElement>
 
-        <FlatList style={{ marginTop: -120, zIndex: 0 }}
+        <FlatList style={{ marginTop: -120, zIndex: 0, marginBottom: 40 }}
           data={items}
           dataExtra={phase}
-          keyExtractor={item => item.amount}
+          keyExtractor={item => item.id}
           renderItem={this.renderItem}
         />
 
-        {/* <BottomBar isHidden={phase === 'phase-3'} /> */}
+        <BottomBar isHidden={phase === 'phase-3'} />
       </View>
     );
   }
@@ -129,25 +177,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flex: 1,
   },
-  titleContainer: {
-    flex: 1,
-  },
   itemContainer: {
     marginHorizontal: 16,
     marginVertical: 8,
   },
-  rowContainer: {
-    alignItems: 'center',
+  description: { 
+    borderBottomWidth: 0.5, 
+    borderBottomColor: '#b2bec3', 
+    paddingBottom: 10,
+    marginBottom: 10,
   },
-  titleText: {},
-  amountText: {
-    fontSize: 18,
-    fontWeight: '900',
+  commentSecondaryText: {
+    color: '#636e72',
+    marginRight: 10,
+    fontSize: 12
   },
-  vatText: {
-    fontSize: 10,
-    color: 'gray',
+  commentContentText: {
+    marginBottom: 4,
+    paddingTop: 5,
   },
+  commentContainer: {
+    marginBottom: 5,
+  }
 });
 
 export default Detail;

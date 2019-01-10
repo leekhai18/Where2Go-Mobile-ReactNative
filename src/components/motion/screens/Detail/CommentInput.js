@@ -5,15 +5,18 @@ import {
   View,
   StyleSheet,
   InteractionManager,
+  Image,
+  Dimensions
 } from 'react-native';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
-class Button extends React.PureComponent {
+let window = Dimensions.get('window');
+
+class CommentInput extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      translateY: new Animated.Value(112),
+      translateY: new Animated.Value(40),
     };
   }
   componentDidMount() {
@@ -36,12 +39,11 @@ class Button extends React.PureComponent {
   hideAnimation(props) {
     Animated.timing(this.state.translateY, {
       easing: Easing.in(Easing.back()),
-      toValue: 112,
+      toValue: 40,
       delay: props.delay,
     }).start();
   }
   render() {
-    const { backgroundColor, name } = this.props;
     const { translateY } = this.state;
 
     const animationStyle = {
@@ -50,22 +52,22 @@ class Button extends React.PureComponent {
 
     return (
       <Animated.View
-        style={[styles.iconContainer, { backgroundColor }, animationStyle]}
+        style={[styles.container, animationStyle]}
       >
-        <SimpleLineIcons name={name} size={24} color="white" />
+        <Image style={{ width: window.width, height: 40 }}
+          source={require('./../../../../assets/images/comment.jpg')}></Image>
       </Animated.View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  iconContainer: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+  container: {
     alignItems: 'center',
     justifyContent: 'center',
+    borderTopWidth: 0.5, 
+    borderTopColor: '#b2bec3', 
   },
 });
 
-export default Button;
+export default CommentInput;
