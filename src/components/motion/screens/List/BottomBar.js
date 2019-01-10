@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { getPlatformElevation } from '../../utils';
+import { withNavigation } from 'react-navigation';
 
 class BottomBar extends PureComponent {
   constructor(props) {
@@ -43,15 +44,18 @@ class BottomBar extends PureComponent {
 
 	//Bottom nav bar tap methods
 	onHomeTap = () => {
-		this.setState({ selectedTab: 0 });
+    this.setState({ selectedTab: 0 });
+    this.props.navigation.navigate('HomeScreen');
 	}
 
 	onWritePostTap = () => {
-		this.setState({ selectedTab: 1 });
+    this.setState({ selectedTab: 1 });
+    this.props.navigation.navigate('NewPostScreen');
 	}
 
 	onProfileTap = () => {
-		this.setState({ selectedTab: 2 });
+    this.setState({ selectedTab: 2 });
+    this.props.navigation.navigate('ProfileScreen');
   }
   
   render() {
@@ -155,4 +159,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default BottomBar;
+export default withNavigation(BottomBar);

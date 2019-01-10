@@ -10,7 +10,7 @@ import { ENTRIES1 } from './static/entries';
 const IS_ANDROID = Platform.OS === 'android';
 const SLIDER_1_FIRST_ITEM = 1;
 
-export default class example extends Component {
+export default class ImagesView extends Component {
 
 	constructor(props) {
 		super(props);
@@ -34,12 +34,11 @@ export default class example extends Component {
 		);
 	}
 
-	main(title) {
+	main() {
 		const { slider1ActiveSlide } = this.state;
 
 		return (
 			<View style={styles.exampleContainer}>
-				<Text style={styles.subtitle}>{title}</Text>
 				<Carousel
 					ref={c => this._slider1Ref = c}
 					data={ENTRIES1}
@@ -88,7 +87,7 @@ export default class example extends Component {
 	}
 
 	render() {
-		const pagination = this.main('Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');
+		const pagination = this.main();
 
 		return (
 			<SafeAreaView style={styles.safeArea}>

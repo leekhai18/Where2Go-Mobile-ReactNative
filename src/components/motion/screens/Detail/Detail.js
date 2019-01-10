@@ -15,6 +15,7 @@ import data from '../../data/data';
 import { ListItem, Row } from '../../components';
 import Toolbar from './Toolbar';
 import BottomBar from './BottomBar';
+import ImagesView from '../../../ImagesView';
 
 class Detail extends PureComponent {
   constructor(props) {
@@ -48,6 +49,10 @@ class Detail extends PureComponent {
     return (
       <View>
         <TranslateYAndOpacity isHidden={phase !== 'phase-2'} delay={56 * delay}>
+          <ImagesView></ImagesView>
+        </TranslateYAndOpacity>
+
+        <TranslateYAndOpacity isHidden={phase !== 'phase-2'} delay={56 * delay}>
           <View style={styles.itemContainer}>
             <Row style={styles.rowContainer}>
               <View style={styles.titleContainer}>
@@ -60,10 +65,6 @@ class Detail extends PureComponent {
             </Text>
           </View>
         </TranslateYAndOpacity>
-
-        {/* <TranslateYAndOpacity isHidden={phase !== 'phase-2'} delay={56 * delay}>
-         <PaginationComponent></PaginationComponent>
-        </TranslateYAndOpacity> */}
       </View>
     );
   };
@@ -98,6 +99,7 @@ class Detail extends PureComponent {
             style={{
               opacity: opacityOfDestinationItem,
               backgroundColor: 'transparent',
+              zIndex: 1
             }}
           >
             <ListItem
@@ -109,7 +111,7 @@ class Detail extends PureComponent {
           </View>
         </SharedElement>
 
-        <FlatList
+        <FlatList style={{ marginTop: -40, zIndex: 0 }}
           data={items}
           dataExtra={phase}
           keyExtractor={item => item.amount}

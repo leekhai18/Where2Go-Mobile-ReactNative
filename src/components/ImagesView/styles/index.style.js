@@ -23,7 +23,8 @@ export default StyleSheet.create({
         flex: 1
     },
     exampleContainer: {
-        paddingVertical: 30
+        paddingTop: 30,
+        paddingBottom: 10,
     },
     exampleContainerDark: {
         backgroundColor: colors.black
