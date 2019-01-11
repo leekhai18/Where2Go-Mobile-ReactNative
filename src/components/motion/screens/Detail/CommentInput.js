@@ -16,7 +16,7 @@ class CommentInput extends React.PureComponent {
     super(props);
 
     this.state = {
-      translateY: new Animated.Value(40),
+      translateY: new Animated.Value(45),
     };
   }
   componentDidMount() {
@@ -39,7 +39,7 @@ class CommentInput extends React.PureComponent {
   hideAnimation(props) {
     Animated.timing(this.state.translateY, {
       easing: Easing.in(Easing.back()),
-      toValue: 40,
+      toValue: 45,
       delay: props.delay,
     }).start();
   }
@@ -54,7 +54,7 @@ class CommentInput extends React.PureComponent {
       <Animated.View
         style={[styles.container, animationStyle]}
       >
-        <Image style={{ width: window.width, height: 40 }}
+        <Image style={{ width: window.width, height: 45 }}
           source={require('./../../../../assets/images/comment.jpg')}></Image>
       </Animated.View>
     );
