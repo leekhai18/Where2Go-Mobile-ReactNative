@@ -26,7 +26,7 @@ export default class StackMode extends Component {
 	layoutStack(type) {
 		const isTinder = type === 'tinder';
 		return (
-			<View style={[{ marginBottom: 95, marginTop: -15 }, isTinder ? styles.exampleContainerDark : styles.exampleContainerLight]}>
+			<View style={[{ marginTop: -15 }, isTinder ? styles.exampleContainerDark : styles.exampleContainerLight]}>
 				<Carousel
 					data={isTinder ? ENTRIES2 : ENTRIES1}
 					renderItem={isTinder ? this._renderLightItem : this._renderItem}

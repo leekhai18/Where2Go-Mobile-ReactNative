@@ -10,6 +10,8 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Auth0Component from '../../../../auth0';
 
 class Toolbar extends PureComponent {
   constructor(props) {
@@ -63,7 +65,7 @@ class Toolbar extends PureComponent {
         {this.gradient}
         <Row style={styles.navStatusBar}>
           <Col size={5}>
-            <Text style={styles.title}>Home</Text>
+            <Text style={[styles.title, { fontFamily: 'Optima-Bold' }]}>Where2Go</Text>
           </Col>
           <Col size={1}>
             <TouchableOpacity onPress={this.onSearchTap}>
@@ -75,19 +77,11 @@ class Toolbar extends PureComponent {
           </Col>
           <Col size={1}>
             <TouchableOpacity onPress={this.onBellTap}>
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/bell.png')}
-              />
+              <AntDesign style={{ marginTop: 7 }} name='filter' size={24} color='#ecf0f1'></AntDesign>
             </TouchableOpacity>
           </Col>
           <Col size={1}>
-            <TouchableOpacity onPress={this.onAvatarTap}>
-              <Image
-                style={styles.statusAvatar}
-                source={require('./../../../../assets/images/me.jpg')}
-              />
-            </TouchableOpacity>
+            <Auth0Component></Auth0Component>
           </Col>
         </Row >
 

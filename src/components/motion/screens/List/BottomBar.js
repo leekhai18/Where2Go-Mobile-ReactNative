@@ -4,7 +4,8 @@ import {
   Text,
   View,
   StyleSheet,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { getPlatformElevation } from '../../utils';
@@ -16,11 +17,13 @@ class BottomBar extends PureComponent {
 
     this.state = {
       translateY: new Animated.Value(56),
-      selectedTab: 0
+      selectedTab: 0,
+      logedIn: false
     };
   }
 
   componentDidMount() {
+    this._retrieveAccessToken();
     this.setState({ selectedTab: this.props.tabIndex })
     setTimeout(() => {
       this.showAnimation();
@@ -83,6 +86,19 @@ class BottomBar extends PureComponent {
     }, 300);
   }
 
+  _retrieveAccessToken = async () => {
+    try {
+      const data = await AsyncStorage.getItem('accessToken');
+      if (data !== 'null' && data !== null) {
+        this.setState({ logedIn: true });
+      } else {
+        this.setState({ logedIn: false });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     return (
       <Animated.View
@@ -96,52 +112,54 @@ class BottomBar extends PureComponent {
           },
         ]}
       >
-        <Row style={{ height: 40, backgroundColor: '#f5f6fa' }}>
-          <Col onTouchStart={this.onHomeTap} style={styles.itemContainer}>
-            {this.state.selectedTab == 0 && (
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/navhomem.png')}>
-              </Image>
-            )}
-            {this.state.selectedTab != 0 && (
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/navhome.png')}>
-              </Image>
-            )}
-          </Col>
+        {this.state.logedIn && (
+          <Row style={{ height: 40, backgroundColor: '#f5f6fa' }}>
+            <Col onTouchStart={this.onHomeTap} style={styles.itemContainer}>
+              {this.state.selectedTab == 0 && (
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navhomem.png')}>
+                </Image>
+              )}
+              {this.state.selectedTab != 0 && (
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navhome.png')}>
+                </Image>
+              )}
+            </Col>
 
-          <Col onTouchStart={this.onWritePostTap} style={styles.itemContainer}>
-            {this.state.selectedTab == 1 && (
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/navordersm.png')}>
-              </Image>
-            )}
-            {this.state.selectedTab != 1 && (
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/navorders.png')}>
-              </Image>
-            )}
-          </Col>
+            <Col onTouchStart={this.onWritePostTap} style={styles.itemContainer}>
+              {this.state.selectedTab == 1 && (
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navordersm.png')}>
+                </Image>
+              )}
+              {this.state.selectedTab != 1 && (
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navorders.png')}>
+                </Image>
+              )}
+            </Col>
 
-          <Col onTouchStart={this.onProfileTap} style={styles.itemContainer}>
-            {this.state.selectedTab == 2 && (
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/navusm.png')}>
-              </Image>
-            )}
-            {this.state.selectedTab != 2 && (
-              <Image
-                style={styles.statusImage}
-                source={require('./../../../../assets/images/navus.png')}>
-              </Image>
-            )}
-          </Col>
-        </Row>
+            <Col onTouchStart={this.onProfileTap} style={styles.itemContainer}>
+              {this.state.selectedTab == 2 && (
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navusm.png')}>
+                </Image>
+              )}
+              {this.state.selectedTab != 2 && (
+                <Image
+                  style={styles.statusImage}
+                  source={require('./../../../../assets/images/navus.png')}>
+                </Image>
+              )}
+            </Col>
+          </Row>
+        )}
       </Animated.View>
     );
   }

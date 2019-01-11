@@ -29,11 +29,21 @@ export default class NewPost extends Component {
               size: 15,
               color: 'white',
             }}
-            backgroundColor='#00d2d3'
+            backgroundColor='#576574'
             buttonStyle={{ borderRadius: 5, marginTop: 10 }}
             title='Add Other Pictures' />
 
           <StackMode></StackMode>
+
+          <Button
+            icon={{
+              name: 'send',
+              size: 15,
+              color: 'white',
+            }}
+            backgroundColor='#00d2d3'
+            buttonStyle={{ borderRadius: 5, marginBottom: 130 }}
+            title='Submit Your New Post' />
         </ScrollView>
 
 

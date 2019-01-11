@@ -22,7 +22,7 @@ class Toolbar extends PureComponent {
               size: 15,
               color: 'white'
             }}
-            backgroundColor='#576574'
+            backgroundColor='#00d2d3'
             buttonStyle={{ borderRadius: 5, marginTop: 10 }}
             title='Choose Background' />
         </Card>

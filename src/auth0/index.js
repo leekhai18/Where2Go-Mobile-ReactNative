@@ -6,23 +6,59 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
+  Image,
+  AsyncStorage
 } from 'react-native';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import RNRestart from 'react-native-restart';
 import Auth0 from 'react-native-auth0';
-import { getCategories, getItems } from '../data/data';
-
 var credentials = require('./auth0-credentials');
 const auth0 = new Auth0(credentials);
 
-export default class Auth0Sample extends Component {
+export default class Auth0Component extends Component {
   constructor(props) {
     super(props);
-    this.state = { accessToken: null };
+    this.state = {
+      accessToken: null,
+      loggedIn: false,
+      profile: {}
+    };
+  }
+
+  _storeAccessToken = async () => {
+    try {
+      await AsyncStorage.setItem('accessToken', this.state.accessToken);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  _retrieveAccessToken = async () => {
+    try {
+      const data = await AsyncStorage.getItem('accessToken');
+      if (data !== 'null' && data !== null) {
+        this.setState({ accessToken: data });
+        this._getUserInfo(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   componentDidMount() {
-    console.log(getCategories());
-    console.log(getItems());
+    this._retrieveAccessToken();
+  }
+
+  _getUserInfo = (token) => {
+    auth0
+      .auth
+      .userInfo({ token: token })
+      .then((user) => {
+        this.setState({ loggedIn: true, profile: user });
+      })
+      .catch(console.error);
   }
 
   _onLogin = () => {
@@ -34,63 +70,68 @@ export default class Auth0Sample extends Component {
       })
       .then(credentials => {
         Alert.alert(
-          'Success',
-          'AccessToken: ' + credentials.accessToken,
+          'Successful',
+          'Login successfully! Need to restart application - Just a temp way ^^',
           [{ text: 'OK' }],
           { cancelable: false }
         );
         this.setState({ accessToken: credentials.accessToken });
-
-        auth0
-          .auth
-          .userInfo({ token: credentials.accessToken })
-          .then(console.log)
-          .catch(console.error);
+        this._getUserInfo(credentials.accessToken);
+        this._storeAccessToken();
+        RNRestart.Restart();
       })
       .catch(error => console.log(error));
   };
 
   _onLogout = () => {
     if (Platform.OS === 'android') {
-      this.setState({ accessToken: null });
+      this.setState({ accessToken: 'null', loggedIn: false });
+      this._storeAccessToken();
+      RNRestart.Restart();
     } else {
       auth0.webAuth
         .clearSession({})
         .then(success => {
-          this.setState({ accessToken: null });
+          this.setState({ accessToken: 'null', loggedIn: false });
+          this._storeAccessToken();
+          RNRestart.Restart();
         })
         .catch(error => console.log(error));
     }
   };
 
   render() {
-    let loggedIn = this.state.accessToken === null ? false : true;
-    
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Auth0Sample - Login</Text>
-        <Text>
-          You are {loggedIn ? '' : 'not '}logged in.
-        </Text>
-        <Button
-          onPress={loggedIn ? this._onLogout : this._onLogin}
-          title={loggedIn ? 'Log Out' : 'Log In'}
-        />
+      <View>
+        {this.state.loggedIn && (
+          <TouchableOpacity onPress={this._onLogout}>
+            <Image
+              style={styles.statusAvatar}
+              source={{ uri: this.state.profile.picture }}
+            />
+          </TouchableOpacity>
+        )}
+
+        {!this.state.loggedIn && (
+          <TouchableOpacity onPress={this._onLogin}>
+            <SimpleLineIcons style={{ marginTop: 7 }} name='login' size={24} color='#ecf0f1'></SimpleLineIcons>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+  statusAvatar: {
+    borderWidth: 1,
+    borderColor: '#ffffff',
+    backgroundColor: '#f1ebeb',
+    borderRadius: 15,
+    marginTop: 4,
+    marginRight: 15,
+    width: 30,
+    height: 30,
+    resizeMode: 'stretch',
   },
-  header: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10
-  }
 });

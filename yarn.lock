@@ -4755,6 +4755,11 @@ react-native-motion@^0.2.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-restart@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-restart/-/react-native-restart-0.0.8.tgz#b19e99b6f0cb9820a3a900e57a564c69d2b0b1e2"
+  integrity sha512-rVtjvNZO4QwYHLn1fDzUGNqYFwJufRBkWdSFlxID/QM+2j7siV4rad138I4ejpPdtwdSsQ/EIIdk6VFUQQ9S9g==
+
 react-native-safe-area-view@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.11.0.tgz#4f3dda43c2bace37965e7c6aef5fc83d4f19d174"
