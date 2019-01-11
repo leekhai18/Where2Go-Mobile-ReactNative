@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableWithoutFeedback, ScrollView, Image } from 'react-native';
 import BottomBar from '../motion/screens/List/BottomBar';
 import Toolbar from './Toolbar';
 import { Row } from '../motion/components/index';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import ToolbarBackground from './ToolbarBackground';
 import { Card, ListItem, Button, Icon, FormLabel, FormInput } from 'react-native-elements'
-import StackMode from '../ImagesView/stackMode';
+import PostItem from './postItem';
 
 export default class Profile extends Component {
   render() {
@@ -16,25 +16,29 @@ export default class Profile extends Component {
         <ToolbarBackground></ToolbarBackground>
         <Toolbar></Toolbar>
 
-        <ScrollView style={{ marginTop: -120, paddingTop: 120, zIndex: -1 }}>
-          <FormInput
-            containerStyle={{ height: 100 }}
-            numberOfLines={4}
-            multiline
-            placeholder='Write description' />
+        <View style={{ height: 130, backgroundColor: 'black', zIndex: -1, marginTop: -130 }}></View>
 
-          <Button
-            icon={{
-              name: 'touch-app',
-              size: 15,
-              color: 'white',
-            }}
-            backgroundColor='#00d2d3'
-            buttonStyle={{ borderRadius: 5, marginTop: 10 }}
-            title='Add Other Pictures' />
+        <View style={{ height: 40, backgroundColor: 'black' }}>
+          <Row style={{ alignSelf: 'center', paddingTop: 5 }}>
+            <View style={{ borderBottomWidth: 1, borderBottomColor: '#f1c40f', paddingBottom: 5 }}>
+              <Text style={{ color: 'white' }}>Posts 5</Text>
+            </View>
 
-          <StackMode></StackMode>
+            <Text style={{ color: '#95a5a6', marginHorizontal: 40 }}>|</Text>
+            <Text style={{ color: '#95a5a6' }}>Likes 2978</Text>
+          </Row>
+        </View>
+
+        <ScrollView style={{ backgroundColor: 'black' }}>
+          <View style={styles.postsContainer}>
+            <PostItem src={require('./../../assets/images/posts/1.jpg')} numOfLike={'789'}></PostItem>
+            <PostItem src={require('./../../assets/images/posts/2.jpg')} numOfLike={'6789'}></PostItem>
+            <PostItem src={require('./../../assets/images/posts/3.jpg')} numOfLike={'70.7k'}></PostItem>
+            <PostItem src={require('./../../assets/images/posts/4.jpg')} numOfLike={'101.2k'}></PostItem>
+            <PostItem src={require('./../../assets/images/posts/5.jpg')} numOfLike={'78k'}></PostItem>
+          </View>
         </ScrollView>
+
 
 
         <FlatList></FlatList>
@@ -71,4 +75,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  postsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginLeft: 5
+  }
 });

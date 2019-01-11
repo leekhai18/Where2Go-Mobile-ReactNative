@@ -94,13 +94,13 @@ class Toolbar extends PureComponent {
                   <FontAwesome style={styles.iconFilter} name="users" size={24} color="white"></FontAwesome>
                 </Row>
                 <Row>
-                  <Text style={styles.filterTextAction}>THƯA</Text>
+                  <Text style={styles.filterTextAction}>sparse</Text>
                 </Row>
               </Col>
             )}
             {this.state.selectedTabview != 0 && (
               <Row>
-                <Text style={styles.filterText}>THƯA</Text>
+                <Text style={styles.filterText}>SPARSE</Text>
               </Row>
             )}
           </Col>
@@ -113,13 +113,13 @@ class Toolbar extends PureComponent {
                   <FontAwesome style={styles.iconFilter} name="users" size={24} color="rgb(255, 193, 7)"></FontAwesome>
                 </Row>
                 <Row>
-                  <Text style={styles.filterTextAction}> VỪA</Text>
+                  <Text style={styles.filterTextAction}>medium</Text>
                 </Row>
               </Col>
             )}
             {this.state.selectedTabview != 1 && (
               <Row>
-                <Text style={styles.filterText}> VỪA</Text>
+                <Text style={styles.filterText}>MEDIUM</Text>
               </Row>
             )}
           </Col>
@@ -132,13 +132,13 @@ class Toolbar extends PureComponent {
                   <FontAwesome style={styles.iconFilter} name="users" size={24} color="rgb(220, 53, 69)"></FontAwesome>
                 </Row>
                 <Row>
-                  <Text style={styles.filterTextAction}>ĐÔNG</Text>
+                  <Text style={styles.filterTextAction}>crowded</Text>
                 </Row>
               </Col>
             )}
             {this.state.selectedTabview != 2 && (
               <Row>
-                <Text style={styles.filterText}>ĐÔNG</Text>
+                <Text style={styles.filterText}>CROWDED</Text>
               </Row>
             )}
           </Col>
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   iconFilter: {
-    marginLeft: 5,
+    marginLeft: 10,
   }
 });
 
