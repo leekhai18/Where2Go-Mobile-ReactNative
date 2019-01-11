@@ -48,7 +48,7 @@ const data = [
     date: moment(),
     likes: 134,
     comments: 1,
-    picture: 'https://i.imgur.com/lceHsT6l.jpg',
+    picture: 'https://i.imgur.com/KZsmUi2l.jpg',
     author: 'leekim',
     items: [
       {
@@ -87,7 +87,7 @@ const data = [
     date: moment(),
     likes: 243,
     comments: 3,
-    picture: 'https://i.imgur.com/lceHsT6l.jpg',
+    picture: 'https://i.imgur.com/MABUbpDl.jpg',
     author: 'khanhu',
     items: [
       {
@@ -126,7 +126,7 @@ const data = [
     date: moment(),
     likes: 645,
     comments: 123,
-    picture: 'https://i.imgur.com/lceHsT6l.jpg',
+    picture: 'https://i.imgur.com/UPrs1EWl.jpg',
     author: 'kieuanh',
     items: [
       {

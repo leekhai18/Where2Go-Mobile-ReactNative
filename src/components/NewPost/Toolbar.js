@@ -12,7 +12,7 @@ class Toolbar extends PureComponent {
       <View style={styles.container}>
         <View style={styles.statusBar} />
         <Card
-          image={{ uri: 'https://i.imgur.com/lceHsT6l.jpg' }}>
+          image={require('./../../assets/images/posts/3.jpg')}>
           <FormInput placeholder='Enter name your new post' />
           <FormInput placeholder='Enter address' />
 
